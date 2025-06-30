@@ -12,7 +12,7 @@ A[Zellis Group] --> B[Zellis]
 A --> C[Moorepay]
 A --> D[Benefex]
 A --> E[Hastee<br/><i>Acquired June 2025</i>]
-A --> J[elementsuite<br/><i>Acquired January 2025</i>]
+A --> J[Elementsuite<br/><i>Acquired January 2025</i>]
 
     B -->|HR, WFM, Payroll Software<br/>Large Enterprises| F[Customers<br/>~1/3 FTSE 100]
     C -->|HR, Payroll Services<br/>SMEs 50-1000| G[Customers<br/>Thousands of SMEs]
@@ -37,5 +37,11 @@ A --> J[elementsuite<br/><i>Acquired January 2025</i>]
     class I,L note;
 ```
 
+## Element Suite Questions
+- What does elementsuite do ?
+- What is the data model ?
+- What operations are done on data model ?
+- What is the API ?
+- What is the message interface ?
 
 
