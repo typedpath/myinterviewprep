@@ -1,0 +1,77 @@
+// sCrypt contract for Tokenovate trade lifecycle on a UTXO-based blockchain
+contract TradeContract {
+    // Public keys for trade participants
+public traderA: PubKey;
+public traderB: PubKey;
+public platform: PubKey;
+
+    // Trade data (CDM-like structure)
+public amount: bigint;
+public asset: string; // e.g., "Derivative Contract"
+public state: number; // 0: Proposed, 1: Agreed, 2: Executed, 3: Settled
+
+    // Constructor to initialize the trade
+    constructor(
+        traderA: PubKey,
+        traderB: PubKey,
+        platform: PubKey,
+        amount: bigint,
+        asset: string
+) {
+        this.traderA = traderA;
+        this.traderB = traderB;
+        this.platform = platform;
+        this.amount = amount;
+        this.asset = asset;
+        this.state = 0; // Proposed
+    }
+
+    // Propose trade (platform initializes, spends previous UTXO)
+public proposeTrade(sigPlatform: Sig) {
+        require(this.state == 0); // Must be Proposed
+        require(checkSig(sigPlatform, this.platform));
+        // State remains Proposed; new UTXO created with trade data
+        // Emits event-like data (e.g., OP_RETURN) for blockchain ledger
+    }
+
+    // Approve trade (both traders sign to move to Agreed)
+public approveTrade(sigA: Sig, sigB: Sig) {
+        require(this.state == 0); // Must be Proposed
+        require(checkSig(sigA, this.traderA));
+        require(checkSig(sigB, this.traderB));
+        this.state = 1; // Move to Agreed
+        // New UTXO created with updated state
+    }
+
+    // Execute trade (platform signs to move to Executed)
+public executeTrade(sigPlatform: Sig) {
+        require(this.state == 1); // Must be Agreed
+        require(checkSig(sigPlatform, this.platform));
+        this.state = 2; // Move to Executed
+        // New UTXO created; triggers ledger update
+    }
+
+    // Settle trade (platform signs to move to Settled)
+public settleTrade(sigPlatform: Sig) {
+        require(this.state == 2); // Must be Executed
+        require(checkSig(sigPlatform, this.platform));
+        this.state = 3; // Move to Settled
+        // New UTXO created; triggers post-trade service (e.g., settlement)
+        // Emits OP_RETURN for audit trail
+    }
+
+    // Verify trade details (read-only, for transparency)
+public verifyTradeDetails(
+        traderA: PubKey,
+        traderB: PubKey,
+        amount: bigint,
+        asset: string,
+        state: number
+) {
+        require(this.traderA == traderA);
+        require(this.traderB == traderB);
+        require(this.amount == amount);
+        require(this.asset == asset);
+        require(this.state == state);
+    }
+}
