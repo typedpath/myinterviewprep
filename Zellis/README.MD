@@ -74,8 +74,9 @@ graph TD
 
 ### Architecture 
 
+- Is there an integration exercise incoming / ongoing?
 - What are the databases, APIS in/out, messages in/out ?
-- Where is it deployed to ?
+- Where is it deployed to / run on ?
 - What are the volumes ?
 
 
