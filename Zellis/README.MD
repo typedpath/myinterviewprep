@@ -72,6 +72,8 @@ graph TD
 
 ## ElementSuite Questions
 
+Will I get chance to work on / learn RUST ?
+
 ### Architecture 
 
 - Is there an integration exercise incoming / ongoing?
